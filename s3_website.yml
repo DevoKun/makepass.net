@@ -1,0 +1,31 @@
+
+profile: default
+
+s3_bucket: makepass.net
+
+site: .
+
+gzip:
+  - .html
+  - .css
+  - .md
+  - .svg
+gzip_zopfli: false
+
+s3_endpoint: us-east-1
+
+exclude_from_upload:
+  - LICENSE
+  - README.md
+  - index.php
+  - lst2json.php
+  - makepass.exe
+  - makepass.json
+  - makepass.lst
+  - makepass_exe.md
+  - s3_website.yml
+  - .git
+
+cloudfront_distribution_id: E3GTCG21PROH1N
+
+cloudfront_invalidate_root: true
