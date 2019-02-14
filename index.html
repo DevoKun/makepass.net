@@ -37,6 +37,17 @@
       padding:5px;
       margin:5px;
     }
+    .generated-password a {
+      margin-left:10px;
+    }
+    a.copyToClipboard {
+      cursor: pointer;
+    }
+    img.clipboard {
+      width:20px;
+      height:20px;
+      color:#ffffff;
+    }
   </style>
 </head>
 <body>
@@ -49,16 +60,31 @@
 <div style="clear: left;" />
 <script type="text/javascript">
 
-  function capitalize_first_letter(string) {
+  function copyToClipboard(copyTextFromElementId) {
+    /*
+    alert("[" + copyTextFromElementId + "]");
+    var copyText = document.getElementById(copyTextFromElementId);
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
+    */
+   var range = document.createRange();
+   range.selectNode(document.getElementById(copyTextFromElementId));
+   window.getSelection().removeAllRanges();
+   window.getSelection().addRange(range);
+   document.execCommand("copy")
+  }
+
+  function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  function get_json(url){
+  function getJson(url){
     var Httpreq = new XMLHttpRequest();
     Httpreq.open("GET", url, false);
     Httpreq.send(null);
     return Httpreq.responseText;
-  } // function get_json
+  } // function getJson
 
   function makepass(words) {
     var seps  = ['-', '_', '.', ';'];
@@ -67,7 +93,7 @@
     var word2  = words[Math.floor(Math.random()*items.length)];
     var word3  = words[Math.floor(Math.random()*items.length)];
     var sep    = seps[Math.floor(Math.random()*seps.length)];
-    var password = capitalize_first_letter(word1) + sep + word2 + Math.floor(Math.random()*9) + word3;
+    var password = capitalizeFirstLetter(word1) + sep + word2 + Math.floor(Math.random()*9) + word3;
     return password;
   } // function makepass
 
@@ -75,7 +101,7 @@
   function makepassTwoWords(words) {
     var word1  = words[Math.floor(Math.random()*items.length)];
     var word2  = words[Math.floor(Math.random()*items.length)];
-    var password = capitalize_first_letter(word1) + Math.floor(Math.random()*9) + word2;
+    var password = capitalizeFirstLetter(word1) + Math.floor(Math.random()*9) + word2;
     while (password.length > 8) {
       password = makepassTwoWords(words);
     } // while
@@ -91,7 +117,7 @@
     var word2  = words[Math.floor(Math.random()*items.length)];
     var sep    = seps[Math.floor(Math.random()*seps.length)];
 
-    var password = capitalize_first_letter(word1) + Math.floor(Math.random()*9) + sep + word2;
+    var password = capitalizeFirstLetter(word1) + Math.floor(Math.random()*9) + sep + word2;
     while ( (password.length > 12) || (password.length < 8) ) {
       password = makepassSam(words);
     } // while
@@ -131,38 +157,43 @@
 
 
   document.getElementById("generated-passwords").innerHTML = 
-    '<div id="password1"  class="generated-password">' + pass1  + '</div>' + 
-    '<div id="password2"  class="generated-password">' + pass2  + '</div>' + 
-    '<div id="password3"  class="generated-password">' + pass3  + '</div>' + 
-    '<div id="password4"  class="generated-password">' + pass4  + '</div>' + 
-    '<div id="password5"  class="generated-password">' + pass5  + '</div>' + 
-    '<div id="password6"  class="generated-password">' + pass6  + '</div>' + 
-    '<div id="password7"  class="generated-password">' + pass7  + '</div>' + 
-    '<div id="password8"  class="generated-password">' + pass8  + '</div>' + 
-    '<div id="password9"  class="generated-password">' + pass9  + '</div>' + 
-    '<div id="password10" class="generated-password">' + pass10 + '</div>';
+    '<div class="generated-password"><span id="password1" >' + pass1  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password1');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password2" >' + pass2  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password2');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password3" >' + pass3  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password3');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password4" >' + pass4  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password4');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password5" >' + pass5  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password5');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password6" >' + pass6  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password6');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password7" >' + pass7  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password7');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password8" >' + pass8  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password8');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password9" >' + pass9  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password9');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password10">' + pass10 + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password10');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>';
 
   document.getElementById("generated-passwords-x2").innerHTML = 
-    '<div id="password1-x2" class="generated-password">' + pass1 + '-' + pass5 + '</div>' + 
-    '<div id="password2-x2" class="generated-password">' + pass2 + '-' + pass6 + '</div>' + 
-    '<div id="password3-x2" class="generated-password">' + pass3 + '-' + pass7 + '</div>' + 
-    '<div id="password4-x2" class="generated-password">' + pass4 + '-' + pass8 + '</div>';
+    '<div class="generated-password"><span id="password1-x2">' + pass1 + '-' + pass5 + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password1-x2');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password2-x2">' + pass2 + '-' + pass6 + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password2-x2');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password3-x2">' + pass3 + '-' + pass7 + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password3-x2');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password4-x2">' + pass4 + '-' + pass8 + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password4-x2');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>';
 
   document.getElementById("generated-passwords-2w").innerHTML = 
-    '<div id="password1-2w"  class="generated-password">' + pass1TwoWords  + '</div>' + 
-    '<div id="password2-2w"  class="generated-password">' + pass2TwoWords  + '</div>' + 
-    '<div id="password3-2w"  class="generated-password">' + pass3TwoWords  + '</div>' + 
-    '<div id="password4-2w"  class="generated-password">' + pass4TwoWords  + '</div>' + 
-    '<div id="password5-2w"  class="generated-password">' + pass5TwoWords  + '</div>' + 
-    '<div id="password6-2w"  class="generated-password">' + pass6TwoWords  + '</div>';
+    '<div class="generated-password"><span id="password1-2w" >' + pass1TwoWords  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password1-2w');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password2-2w" >' + pass2TwoWords  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password2-2w');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password3-2w" >' + pass3TwoWords  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password3-2w');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password4-2w" >' + pass4TwoWords  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password4-2w');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password5-2w" >' + pass5TwoWords  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password5-2w');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password6-2w" >' + pass6TwoWords  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password6-2w');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>';
 
   document.getElementById("generated-passwords-sam").innerHTML = 
-    '<div id="password1-sam"  class="generated-password">' + pass1Sam  + '</div>' + 
-    '<div id="password2-sam"  class="generated-password">' + pass2Sam  + '</div>' + 
-    '<div id="password3-sam"  class="generated-password">' + pass3Sam  + '</div>' + 
-    '<div id="password4-sam"  class="generated-password">' + pass4Sam  + '</div>' + 
-    '<div id="password5-sam"  class="generated-password">' + pass5Sam  + '</div>' + 
-    '<div id="password6-sam"  class="generated-password">' + pass6Sam  + '</div>';
+    '<div class="generated-password"><span id="password1-sam" >' + pass1Sam  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password1-sam');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password2-sam" >' + pass2Sam  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password2-sam');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password3-sam" >' + pass3Sam  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password3-sam');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password4-sam" >' + pass4Sam  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password4-sam');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password5-sam" >' + pass5Sam  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password5-sam');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>' + 
+    '<div class="generated-password"><span id="password6-sam" >' + pass6Sam  + '</span>' + "<a class=\"copyToClipboard\" onclick=\"copyToClipboard('password6-sam');\"><img class=\"clipboard\" src=\"clipboard.svg\" /></a>" + '</div>';
+
+
+
+
+
 
 
 
