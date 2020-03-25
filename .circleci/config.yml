@@ -3,13 +3,16 @@
 # https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+
 jobs:
   test:
     branches:
-        only:
-          - master
+      only:
+        - master
     environment:
       HELLO: WORLD
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
       - run:
