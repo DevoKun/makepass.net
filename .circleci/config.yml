@@ -16,9 +16,9 @@ only-master-branch: &only-master-branch
 
 jobs:
   executeOrder66:
-    branches:
-      only:
-        - master
+    #branches:
+    #  only:
+    #    - master
     environment:
       HELLO: WORLD
     #executor: "gh-aws-node-python"
