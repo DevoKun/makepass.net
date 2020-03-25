@@ -9,11 +9,11 @@ version: 2
 
 jobs:
   executeOrder66:
-    #branches:
-    #  only:
-    #    - master
-    #environment:
-    #  HELLO: WORLD
+    branches:
+      only:
+        - master
+    environment:
+      HELLO: WORLD
     #executor: "gh-aws-node-python"
     docker:
       - image: cimg/base:2020.01
