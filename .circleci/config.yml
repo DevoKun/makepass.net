@@ -16,23 +16,35 @@ only-master-branch: &only-master-branch
 
 jobs:
   executeOrder66:
-    #branches:
-    #  only:
-    #    - master
     environment:
       HELLO: WORLD
+      S3_BUCKET: "makepass.net"
     #executor: "gh-aws-node-python"
     docker:
-      - image: cimg/base:2020.01
+      #- image: cimg/base:2020.01
+      - image: cimg/ruby:2.6.5
     steps:
       - checkout
 
       - run:
-          name:    'step 1'
+          name: ruby version
+          shell: /bin/bash
+          command: ruby --version
+
+      - run:
+          name: install s3_website
+          shell: /bin/bash
+          command: |+
+            gem install s3_website --no-doc
+            s3_website install
+
+      - run:
+          name:    'info'
           shell:   '/bin/bash'
           command: |+
             echo
-            echo "pwd: $(pwd)"
+            echo "S3 Bucket: ${S3_BUCKET}"
+            echo "pwd......: $(pwd)"
             ls
             echo
             echo "done"
