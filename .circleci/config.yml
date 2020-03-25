@@ -20,10 +20,16 @@ jobs:
     steps:
       - checkout
 
-      - run: 'echo ; echo "pwd: $(pwd)" ; ls ; echo ; echo "done" ; echo ;'
-          #name:    'step 1'
-          #shell:   '/bin/bash'
-          #command: 'echo ; echo "pwd: $(pwd)" ; ls ; echo ; echo "done" ; echo ;'
+      - run:
+          name:    'step 1'
+          shell:   '/bin/bash'
+          command: |+
+            echo
+            echo "pwd: $(pwd)"
+            ls
+            echo
+            echo "done"
+            echo
 
 workflows:
   version: 2
