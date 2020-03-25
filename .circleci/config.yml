@@ -5,12 +5,21 @@ version: 2.1
 
 jobs:
   test:
+    branches:
+        only:
+          - master
+    environment:
+      HELLO: WORLD
     steps:
-      - run: |+
-          echo "pwd: $(pwd)"
-          ls
-          echo
-          echo "done"
-          echo
+      - checkout
+      - run:
+          shell: /bin/bash
+          command: |+
+            echo
+            echo "pwd: $(pwd)"
+            ls
+            echo
+            echo "done"
+            echo
 
 
