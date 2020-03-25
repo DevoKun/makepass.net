@@ -1,31 +1,34 @@
 
 # https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
+version: 2
 
-executors:
-  "gh-aws-node-python":
-    docker:
-      - image: devokun/gh-aws-node-python:latest
+#executors:
+#  "gh-aws-node-python":
+#    docker:
+#      - image: devokun/gh-aws-node-python:latest
 
 jobs:
   executeOrder66:
-    branches:
-      only:
-        - master
-    environment:
-      HELLO: WORLD
-    executor: "gh-aws-node-python"
+    #branches:
+    #  only:
+    #    - master
+    #environment:
+    #  HELLO: WORLD
+    #executor: "gh-aws-node-python"
+    docker:
+      - image: cimg/base:2020.01
     steps:
       - checkout
-      - run:
-          name:    'step 1'
-          shell:   '/bin/bash'
-          command: 'echo ; echo "pwd: $(pwd)" ; ls ; echo ; echo "done" ; echo ;'
 
-workflows:
-  version: 2
-  dewit:
-    jobs:
-      - executeOrder66
+      - run: 'echo ; echo "pwd: $(pwd)" ; ls ; echo ; echo "done" ; echo ;'
+          #name:    'step 1'
+          #shell:   '/bin/bash'
+          #command: 'echo ; echo "pwd: $(pwd)" ; ls ; echo ; echo "done" ; echo ;'
+
+#workflows:
+#  version: 2
+#  dewit:
+#    jobs:
+#      - executeOrder66
 
 
